@@ -9,6 +9,8 @@ const CurrencyListScreen = () => {
   const { theme } = useThemeStore();
   const { currencies, isLoading, isError } = useCurrencies();
   const navigation = useNavigation<NavigationProp<CurrencyStackParamList>>();
+  console.log(currencies);
+  
 
   if (isLoading) return <ActivityIndicator size="large" color={theme.primary} />;
   if (isError) return <Text style={{ color: theme.text }}>Error al cargar datos</Text>;
