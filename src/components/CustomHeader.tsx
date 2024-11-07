@@ -1,3 +1,4 @@
+// src/components/CustomHeader.tsx
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { useThemeStore } from '../stores/themeStore';
@@ -9,11 +10,12 @@ const CustomHeader = () => {
 
   if (!userData) return null;
 
+  // Obtener iniciales del usuario
   const initials = `${userData.name.charAt(0)}${userData.username.charAt(0)}`;
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Image source={{ uri: 'https://myalbatross.ai/images/logo.svg' }} style={styles.logo} />
+      <Image source={require('../assets/logo.png')} style={styles.logo} /> {/* Cambiado a PNG */}
       <View style={styles.userInfo}>
         <Text style={[styles.greeting, { color: theme.text }]}>Hi,</Text>
         <Text style={[styles.name, { color: theme.text }]}>{userData.name}</Text>
@@ -40,14 +42,18 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     flex: 1,
-    marginLeft: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10,
+    justifyContent: 'flex-end', 
   },
   greeting: {
-    fontSize: 16,
+    fontSize: 14, 
     fontWeight: '400',
+    marginRight: 4,
   },
   name: {
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: '600',
   },
   initialsBox: {
