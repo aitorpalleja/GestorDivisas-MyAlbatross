@@ -29,8 +29,9 @@ const CurrencyStack = () => {
         component={CurrencyDetailScreen}
         options={{
           title: 'Currency Detail',
-          headerStyle: { backgroundColor: theme.backgroundHeader },
+          headerStyle: { backgroundColor: theme.background },
           headerTitleStyle: { color: theme.text },
+          headerTintColor: theme.text,
         }}
       />
     </Stack.Navigator>
@@ -55,7 +56,7 @@ const AppNavigator = () => {
           tabBarActiveTintColor: theme.primary,
           tabBarInactiveTintColor: 'gray',
           tabBarStyle: {
-            backgroundColor: theme.backgroundHeader, 
+            backgroundColor: theme.background,
             borderTopWidth: 0,
           },
         })}

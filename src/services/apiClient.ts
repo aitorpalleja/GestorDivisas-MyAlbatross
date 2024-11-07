@@ -11,6 +11,8 @@ const fetcher = (url: string) => fetch(url).then((res) => {
 // Hook para obtener la lista de divisas
 export const useCurrencies = () => {
   const { data, error } = useSWR(`${API_BASE_URL}/currencies`, fetcher);
+  console.log(data);
+  
   return {
     currencies: data,
     isLoading: !error && !data,

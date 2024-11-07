@@ -1,80 +1,53 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CurrencyListScreen from '../screens/CurrencyListScreen';
-import UserProfileScreen from '../screens/UserProfileScreen';
-import CurrencyDetailScreen from '../screens/CurrencyDetailScreen';
-import CustomHeader from '../components/CustomHeader';
-import { Home, User } from 'lucide-react-native';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { useRoute, RouteProp } from '@react-navigation/native';
+import { useCurrencyDetails } from '../services/apiClient';
+import { LineChart } from 'react-native-gifted-charts';
 import { useThemeStore } from '../stores/themeStore';
+import { CurrencyStackParamList } from '../navigation/types';
 
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const CurrencyDetailScreen = () => {
+    const route = useRoute<RouteProp<CurrencyStackParamList, 'CurrencyDetail'>>();
+    const { currencyCode } = route.params;
+    const { theme } = useThemeStore();
+    const { currencyDetails, isLoading, isError } = useCurrencyDetails(currencyCode);
 
-const CurrencyStack = () => {
-  const { theme } = useThemeStore();
+    if (isLoading) return <ActivityIndicator size="large" color={theme.primary} />;
+    if (isError) return <Text style={{ color: theme.text }}>Error al cargar detalles de la divisa</Text>;
 
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="CurrencyList"
-        component={CurrencyListScreen}
-        options={{
-          header: () => <CustomHeader />,
-        }}
-      />
-      <Stack.Screen
-        name="CurrencyDetail"
-        component={CurrencyDetailScreen}
-        options={{
-          title: 'Currency Detail',
-          headerStyle: { backgroundColor: theme.background }, 
-          headerTitleStyle: { color: theme.text },
-        }}
-      />
-    </Stack.Navigator>
-  );
+    const chartData = currencyDetails.history.map((entry: { rate: number; date: string }) => ({
+        value: entry.rate,
+        label: entry.date.slice(5), 
+    }));
+
+    return (
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
+            <Text style={[styles.title, { color: theme.text }]}>{currencyDetails.code} Details</Text>
+            <LineChart
+                data={chartData}
+                thickness={2}
+                color={theme.primary}
+                adjustToWidth
+                hideDataPoints
+                startFillColor={`${theme.primary}50`}
+                endFillColor={`${theme.primary}10`}
+                initialSpacing={10}
+            />
+        </View>
+    );
 };
 
-const AppNavigator = () => {
-  const { theme } = useThemeStore();
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        alignSelf: 'center',
+    },
+});
 
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Currencies"
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            if (route.name === 'Currencies') {
-              return <Home color={color} size={size} />;
-            } else if (route.name === 'User') {
-              return <User color={color} size={size} />;
-            }
-          },
-          tabBarActiveTintColor: theme.primary,
-          tabBarInactiveTintColor: 'gray',
-          tabBarStyle: {
-            backgroundColor: theme.background, 
-            borderTopWidth: 0,
-          },
-        })}
-      >
-        <Tab.Screen
-          name="Currencies"
-          component={CurrencyStack}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name="User"
-          component={UserProfileScreen}
-          options={{
-            header: () => <CustomHeader />,
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-};
-
-export default AppNavigator;
+export default CurrencyDetailScreen;
