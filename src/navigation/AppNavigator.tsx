@@ -5,17 +5,27 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CurrencyListScreen from '../screens/CurrencyListScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import CurrencyDetailScreen from '../screens/CurrencyDetailScreen';
+import CustomHeader from '../components/CustomHeader';
 import { Home, User } from 'lucide-react-native';
 import { useThemeStore } from '../stores/themeStore';
-import { CurrencyStackParamList, RootTabParamList } from './types';
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
-const Stack = createNativeStackNavigator<CurrencyStackParamList>();
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const CurrencyStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="CurrencyList" component={CurrencyListScreen} options={{ title: 'Currencies' }} />
-    <Stack.Screen name="CurrencyDetail" component={CurrencyDetailScreen} options={{ title: 'Currency Detail' }} />
+    <Stack.Screen
+      name="CurrencyList"
+      component={CurrencyListScreen}
+      options={{
+        header: () => <CustomHeader />,
+      }}
+    />
+    <Stack.Screen
+      name="CurrencyDetail"
+      component={CurrencyDetailScreen}
+      options={{ title: 'Currency Detail' }}
+    />
   </Stack.Navigator>
 );
 
@@ -43,7 +53,13 @@ const AppNavigator = () => {
           component={CurrencyStack}
           options={{ headerShown: false }}
         />
-        <Tab.Screen name="User" component={UserProfileScreen} />
+        <Tab.Screen
+          name="User"
+          component={UserProfileScreen}
+          options={{
+            header: () => <CustomHeader />, 
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
