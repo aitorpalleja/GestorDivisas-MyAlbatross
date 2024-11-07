@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, ActivityIndicator, FlatList, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useCurrencies } from '../services/apiClient';
 import { useThemeStore } from '../stores/themeStore';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { CurrencyStackParamList } from '../navigation/types';
 
 const CurrencyListScreen = () => {
   const { theme } = useThemeStore();
   const { currencies, isLoading, isError } = useCurrencies();
+  const navigation = useNavigation<NavigationProp<CurrencyStackParamList>>();
 
   if (isLoading) return <ActivityIndicator size="large" color={theme.primary} />;
   if (isError) return <Text style={{ color: theme.text }}>Error al cargar datos</Text>;
@@ -16,11 +19,13 @@ const CurrencyListScreen = () => {
         data={currencies}
         keyExtractor={(item) => item.code}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={[styles.text, { color: theme.text }]}>
-              {item.code}: {item.currentRate}
-            </Text>
-          </View>
+          <TouchableOpacity onPress={() => navigation.navigate('CurrencyDetail', { currencyCode: item.code })}>
+            <View style={styles.item}>
+              <Text style={[styles.text, { color: theme.text }]}>
+                {item.code}: {item.currentRate}
+              </Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
     </View>
