@@ -12,22 +12,30 @@ import { useThemeStore } from '../stores/themeStore';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const CurrencyStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="CurrencyList"
-      component={CurrencyListScreen}
-      options={{
-        header: () => <CustomHeader />,
-      }}
-    />
-    <Stack.Screen
-      name="CurrencyDetail"
-      component={CurrencyDetailScreen}
-      options={{ title: 'Currency Detail' }}
-    />
-  </Stack.Navigator>
-);
+const CurrencyStack = () => {
+  const { theme } = useThemeStore();
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="CurrencyList"
+        component={CurrencyListScreen}
+        options={{
+          header: () => <CustomHeader />,
+        }}
+      />
+      <Stack.Screen
+        name="CurrencyDetail"
+        component={CurrencyDetailScreen}
+        options={{
+          title: 'Currency Detail',
+          headerStyle: { backgroundColor: theme.backgroundHeader },
+          headerTitleStyle: { color: theme.text },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const AppNavigator = () => {
   const { theme } = useThemeStore();
@@ -46,6 +54,10 @@ const AppNavigator = () => {
           },
           tabBarActiveTintColor: theme.primary,
           tabBarInactiveTintColor: 'gray',
+          tabBarStyle: {
+            backgroundColor: theme.backgroundHeader, 
+            borderTopWidth: 0,
+          },
         })}
       >
         <Tab.Screen
@@ -57,7 +69,7 @@ const AppNavigator = () => {
           name="User"
           component={UserProfileScreen}
           options={{
-            header: () => <CustomHeader />, 
+            header: () => <CustomHeader />,
           }}
         />
       </Tab.Navigator>
