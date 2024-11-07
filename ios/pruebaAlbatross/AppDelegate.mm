@@ -19,6 +19,11 @@
   return [self bundleURL];
 }
 
+- (BOOL)bridgelessEnabled
+{
+ return NO;
+}
+
 - (NSURL *)bundleURL
 {
 #if DEBUG
