@@ -1,34 +1,50 @@
 import React from 'react';
-import { View, Text, ActivityIndicator, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, FlatList, StyleSheet, Text } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { useCurrencies } from '../services/apiClient';
 import { useThemeStore } from '../stores/themeStore';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { CurrencyStackParamList } from '../navigation/types';
+import CurrencyCard from '../components/CurrencyCard';
 
 const CurrencyListScreen = () => {
   const { theme } = useThemeStore();
   const { currencies, isLoading, isError } = useCurrencies();
-  const navigation = useNavigation<NavigationProp<CurrencyStackParamList>>();
-  console.log(currencies);
-  
+  const navigation = useNavigation<NavigationProp<any>>();
 
-  if (isLoading) return <ActivityIndicator size="large" color={theme.primary} />;
-  if (isError) return <Text style={{ color: theme.text }}>Error al cargar datos</Text>;
+  if (isLoading) {
+    return (
+      <View style={[styles.container, styles.centered, { backgroundColor: theme.background }]}>
+        <ActivityIndicator size="large" color={theme.text} />
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View style={[styles.container, styles.centered, { backgroundColor: theme.background }]}>
+        <Text style={[styles.error, { color: theme.text }]}>Error al cargar datos</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <FlatList
         data={currencies}
         keyExtractor={(item) => item.code}
+        numColumns={2}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate('CurrencyDetail', { currencyCode: item.code })}>
-            <View style={styles.item}>
-              <Text style={[styles.text, { color: theme.text }]}>
-                {item.code}: {item.currentRate}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <CurrencyCard
+            code={item.code}
+            currentRate={item.currentRate}
+            difference={item.differenceBetweenYesterdayRate}
+            onPress={() => navigation.navigate('CurrencyDetail', { currencyCode: item.code })}
+            theme={{
+              cardBackground: theme.cardBackground,
+              text: theme.text,
+            }}
+          />
         )}
+        contentContainerStyle={styles.list}
       />
     </View>
   );
@@ -37,15 +53,16 @@ const CurrencyListScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
   },
-  item: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  text: {
-    fontSize: 18,
+  list: {
+    padding: 12,
+  },
+  error: {
+    fontSize: 16,
   },
 });
 
