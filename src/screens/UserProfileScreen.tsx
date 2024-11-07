@@ -1,20 +1,24 @@
+// src/screens/UserProfileScreen.tsx
 import React from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
-import { useThemeStore } from '../stores/themeStore';
+import {View, Text, StyleSheet} from 'react-native';
 import LanguageSwitch from '../components/LanguageSwitch';
-import { useTranslation } from 'react-i18next';
+import DarkModeSwitch from '../components/DarkModeSwitch';
+import {useThemeStore} from '../stores/themeStore';
+import {useTranslation} from 'react-i18next';
 
 const UserProfileScreen = () => {
-  const { t } = useTranslation();
-  const { isDarkMode, toggleTheme, theme } = useThemeStore();
+  const {theme} = useThemeStore();
+  const {t} = useTranslation();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <LanguageSwitch />
+    <View style={[styles.container, {backgroundColor: theme.background}]}>
+      <Text style={[styles.title, {color: theme.text}]}>
+        {t('user.profile')}
+      </Text>
+
       <View style={styles.switchContainer}>
-        <Text style={[styles.text, { color: theme.text }]}>{t('user.profile')}</Text>
-        <Text style={{ color: theme.text }}>{isDarkMode ? 'Dark Mode' : 'Light Mode'}</Text>
-        <Switch value={isDarkMode} onValueChange={toggleTheme} />
+        <LanguageSwitch />
+        <DarkModeSwitch />
       </View>
     </View>
   );
@@ -25,15 +29,20 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  switchContainer: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    alignItems: 'center',
-  },
-  text: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 16,
+    alignSelf: 'center',
+  },
+  switchContainer: {
+    marginTop: 20,
+    padding: 16,
+    borderRadius: 10,
+    backgroundColor: '#333', 
+    alignItems: 'flex-start',
+    alignSelf: 'center',
+    width: '90%',
   },
 });
 
