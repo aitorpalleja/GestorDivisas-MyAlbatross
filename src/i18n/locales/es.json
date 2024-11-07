@@ -1,0 +1,12 @@
+{
+    "tabs": {
+      "currencies": "Divisas",
+      "user": "Usuario"
+    },
+    "user": {
+      "profile": "Perfil de Usuario",
+      "edit": "Editar",
+      "save": "Guardar"
+    }
+  }
+  
