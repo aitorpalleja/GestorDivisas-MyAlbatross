@@ -126,6 +126,7 @@ const InsightsScreen = () => {
           yAxisColor={theme.text}
           xAxisColor={theme.text}
           yAxisTextStyle={{color: theme.text}}
+          xAxisLabelTextStyle={{color: theme.text}}
         />
       </View>
 
