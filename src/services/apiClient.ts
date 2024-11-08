@@ -41,3 +41,21 @@ export const useUserData = () => {
     isError: error,
   };
 };
+
+// Función para actualizar datos del usuario
+export const updateUserData = async (userId: number, updatedData: Partial<{ name: string; username: string; email: string; birthDate: string }>) => {
+  const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al actualizar datos del usuario');
+  }
+
+  return response.json();
+};
+
