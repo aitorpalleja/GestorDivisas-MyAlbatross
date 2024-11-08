@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {TouchableOpacity, StyleSheet} from 'react-native';
 import i18next from 'i18next';
-import { useTranslation } from 'react-i18next';
+import {Flag} from 'lucide-react-native';
 
 const LanguageSwitch = () => {
-  const { t } = useTranslation();
   const [isEnglish, setIsEnglish] = useState(i18next.language === 'en');
 
   const toggleLanguage = () => {
@@ -14,27 +13,22 @@ const LanguageSwitch = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{isEnglish ? 'EN' : 'ES'}</Text>
-      <Switch
-        value={isEnglish}
-        onValueChange={toggleLanguage}
-      />
-    </View>
+    <TouchableOpacity onPress={toggleLanguage} style={styles.button}>
+      <Flag size={20} color={isEnglish ? '#FFD700' : '#C70039'} />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
+  button: {
+    width: 40,
+    height: 40,
     alignItems: 'center',
-    position: 'absolute',
-    top: 10,
-    right: 10,
-  },
-  label: {
-    marginRight: 8,
-    fontSize: 16,
+    justifyContent: 'center',
+    borderRadius: 8,
+    backgroundColor: '#2A2F33',
+    borderWidth: 1,
+    borderColor: '#58d3a4',
   },
 });
 
