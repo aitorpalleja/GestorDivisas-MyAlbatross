@@ -1,12 +1,15 @@
 {
-    "tabs": {
-      "currencies": "Divisas",
-      "user": "Usuario"
-    },
-    "user": {
-      "profile": "Perfil de Usuario",
-      "edit": "Editar",
-      "save": "Guardar"
-    }
+  "user": {
+    "profile": "Perfil del usuario",
+    "name": "Nombre",
+    "username": "Usuario",
+    "email": "Correo electrónico",
+    "birthDate": "Fecha de nacimiento",
+    "update": "Actualizar",
+    "success": "Datos actualizados correctamente",
+    "error": "No se pudieron actualizar los datos"
+  },
+  "error": {
+    "loadData": "Error al cargar datos"
   }
-  
+}

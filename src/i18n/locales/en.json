@@ -1,12 +1,15 @@
 {
-    "tabs": {
-      "currencies": "Currencies",
-      "user": "User"
-    },
-    "user": {
-      "profile": "User Profile",
-      "edit": "Edit",
-      "save": "Save"
-    }
+  "user": {
+    "profile": "User Profile",
+    "name": "Name",
+    "username": "Username",
+    "email": "Email",
+    "birthDate": "Birth Date",
+    "update": "Update",
+    "success": "Data updated successfully",
+    "error": "Could not update data"
+  },
+  "error": {
+    "loadData": "Error loading data"
   }
-  
+}
