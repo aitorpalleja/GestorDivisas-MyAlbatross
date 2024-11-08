@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home, User, Settings} from 'lucide-react-native';
+import {Home, User, BarChart3, Settings} from 'lucide-react-native';
 import CurrencyListScreen from '../screens/CurrencyListScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import CurrencyDetailScreen from '../screens/CurrencyDetailScreen';
+import InsightsScreen from '../screens/InsightsScreen';
 import CustomHeader from '../components/CustomHeader';
 import FloatingMenu from '../components/FloatingMenu';
 import {useThemeStore} from '../stores/themeStore';
@@ -44,53 +45,65 @@ const AppNavigator = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Currencies"
-        screenOptions={({route}) => ({
-          tabBarIcon: ({color, size}) => {
-            if (route.name === 'Currencies') {
-              return <Home color={color} size={size} />;
-            } else if (route.name === 'User') {
-              return <User color={color} size={size} />;
-            } else if (route.name === 'Settings') {
-              return <Settings color={color} size={size} />;
-            }
-          },
-          tabBarActiveTintColor: theme.primary,
-          tabBarInactiveTintColor: 'gray',
-          tabBarStyle: {
-            backgroundColor: theme.background,
-            borderTopWidth: 0,
-          },
-          tabBarShowLabel: false,
-        })}>
-        <Tab.Screen
-          name="Currencies"
-          component={CurrencyStack}
-          options={{headerShown: false}}
-        />
-        <Tab.Screen
-          name="User"
-          component={UserProfileScreen}
-          options={{
-            header: () => <CustomHeader />,
-          }}
-        />
-        <Tab.Screen
-          name="Settings"
-          listeners={{
-            tabPress: e => {
-              e.preventDefault();
-              setIsMenuOpen(prev => !prev);
+    <>
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName="Currencies"
+          screenOptions={({route}) => ({
+            tabBarIcon: ({color, size}) => {
+              if (route.name === 'Currencies') {
+                return <Home color={color} size={size} />;
+              } else if (route.name === 'User') {
+                return <User color={color} size={size} />;
+              } else if (route.name === 'Insights') {
+                return <BarChart3 color={color} size={size} />;
+              } else if (route.name === 'Settings') {
+                return <Settings color={color} size={size} />;
+              }
             },
-          }}>
-          {() => null}
-        </Tab.Screen>
-      </Tab.Navigator>
+            tabBarActiveTintColor: theme.primary,
+            tabBarInactiveTintColor: 'gray',
+            tabBarStyle: {
+              backgroundColor: theme.background,
+              borderTopWidth: 0,
+            },
+            tabBarShowLabel: false,
+          })}>
+          <Tab.Screen
+            name="Currencies"
+            component={CurrencyStack}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name="Insights"
+            component={InsightsScreen}
+            options={{
+              header: () => <CustomHeader />,
+            }}
+          />
+          <Tab.Screen
+            name="User"
+            component={UserProfileScreen}
+            options={{
+              header: () => <CustomHeader />,
+            }}
+          />
+          <Tab.Screen
+            name="Settings"
+            listeners={{
+              tabPress: e => {
+                e.preventDefault();
+                setIsMenuOpen(prev => !prev);
+              },
+            }}>
+            {() => null}
+          </Tab.Screen>
+        </Tab.Navigator>
+      </NavigationContainer>
 
+      {/* Menú flotante */}
       <FloatingMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-    </NavigationContainer>
+    </>
   );
 };
 
