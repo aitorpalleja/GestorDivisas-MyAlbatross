@@ -1,34 +1,100 @@
-import React from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
-import { useUserData } from '../services/apiClient';
-import { useThemeStore } from '../stores/themeStore';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+} from 'react-native';
+import {useUserData, updateUserData} from '../services/apiClient';
+import {useThemeStore} from '../stores/themeStore';
 import LanguageSwitch from '../components/LanguageSwitch';
 import DarkModeSwitch from '../components/DarkModeSwitch';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const UserProfileScreen = () => {
-  const { theme } = useThemeStore();
-  const { t } = useTranslation();
-  const { userData, isLoading, isError } = useUserData();
+  const {theme} = useThemeStore();
+  const {t} = useTranslation();
+  const {userData, isLoading, isError} = useUserData();
 
-  if (isLoading) return <ActivityIndicator size="large" color={theme.primary} />;
-  if (isError) return <Text style={{ color: theme.text }}>Error al cargar datos</Text>;
+  const [editingData, setEditingData] = useState({
+    name: '',
+    username: '',
+    email: '',
+    birthDate: '',
+  });
+
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  if (isLoading)
+    return (
+      <View style={[styles.container, {backgroundColor: theme.background}]}>
+        <ActivityIndicator size="large" color={theme.primary} />
+      </View>
+    );
+
+  if (isError)
+    return (
+      <View style={[styles.container, {backgroundColor: theme.background}]}>
+        <Text style={[styles.error, {color: theme.text}]}>
+          {t('error.loadData')}
+        </Text>
+      </View>
+    );
+
+  const handleUpdate = async () => {
+    try {
+      setIsUpdating(true);
+      await updateUserData(userData.id, editingData);
+      setIsUpdating(false);
+    } catch (error) {
+      setIsUpdating(false);
+      console.error('Error updating user data:', error);
+    }
+  };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Text style={[styles.title, { color: theme.text }]}>{t('user.profile')}</Text>
-      
+    <View style={[styles.container, {backgroundColor: theme.background}]}>
+      <Text style={[styles.title, {color: theme.text}]}>
+        {t('user.profile')}
+      </Text>
+
       <View style={styles.infoContainer}>
-        <Text style={[styles.text, { color: theme.text }]}>Name: {userData.name}</Text>
-        <Text style={[styles.text, { color: theme.text }]}>Username: {userData.username}</Text>
-        <Text style={[styles.text, { color: theme.text }]}>Email: {userData.email}</Text>
-        <Text style={[styles.text, { color: theme.text }]}>Birth Date: {userData.birthDate}</Text>
+        {['name', 'username', 'email', 'birthDate'].map(field => (
+          <View
+            key={field}
+            style={[styles.card, {backgroundColor: theme.cardBackground}]}>
+            <Text style={[styles.label, {color: theme.text}]}>
+              {t(`user.${field}`)}
+            </Text>
+            <TextInput
+              style={[
+                styles.input,
+                {color: theme.text, borderColor: theme.border},
+              ]}
+              defaultValue={userData[field]}
+              onChangeText={value =>
+                setEditingData(prev => ({...prev, [field]: value}))
+              }
+              placeholderTextColor={theme.text + '90'}
+            />
+          </View>
+        ))}
       </View>
 
-      <View style={styles.switchContainer}>
-        <LanguageSwitch />
-        <DarkModeSwitch />
-      </View>
+      <TouchableOpacity
+        onPress={handleUpdate}
+        style={[styles.button, {backgroundColor: theme.primary}]}
+        disabled={isUpdating}>
+        {isUpdating ? (
+          <ActivityIndicator size="small" color={theme.background} />
+        ) : (
+          <Text style={[styles.buttonText, {color: theme.background}]}>
+            {t('user.update')}
+          </Text>
+        )}
+      </TouchableOpacity>
     </View>
   );
 };
@@ -37,6 +103,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 12,
+    marginBottom: 16,
   },
   title: {
     fontSize: 24,
@@ -47,16 +119,35 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginBottom: 20,
   },
-  text: {
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  switchContainer: {
+  card: {
+    borderRadius: 12,
     padding: 16,
-    borderRadius: 10,
-    backgroundColor: '#333',
+    marginBottom: 12,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  input: {
+    fontSize: 16,
+    fontWeight: '400',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 8,
+  },
+  button: {
     alignSelf: 'center',
-    width: '90%',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  error: {
+    fontSize: 16,
   },
 });
 

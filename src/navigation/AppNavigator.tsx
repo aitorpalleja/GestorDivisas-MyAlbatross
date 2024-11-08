@@ -59,6 +59,7 @@ const AppNavigator = () => {
             backgroundColor: theme.background,
             borderTopWidth: 0,
           },
+          tabBarShowLabel: false
         })}
       >
         <Tab.Screen
