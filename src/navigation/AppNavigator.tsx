@@ -11,12 +11,14 @@ import CustomHeader from '../components/CustomHeader';
 import FloatingMenu from '../components/FloatingMenu';
 import {useThemeStore} from '../stores/themeStore';
 import TrendsScreen from '../screens/TrendsScreen';
+import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const CurrencyStack = () => {
   const {theme} = useThemeStore();
+  const {t} = useTranslation();
 
   return (
     <Stack.Navigator>
@@ -31,7 +33,7 @@ const CurrencyStack = () => {
         name="CurrencyDetail"
         component={CurrencyDetailScreen}
         options={{
-          title: 'Currency Detail',
+          title: t('currencyDetail.title'),
           headerStyle: {backgroundColor: theme.background},
           headerTitleStyle: {color: theme.text},
           headerTintColor: theme.text,

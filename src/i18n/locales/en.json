@@ -15,11 +15,11 @@
   },
 
   "currencyDetail": {
-    "title": "{{currencyCode}} Details",
     "errorLoading": "Error loading currency details",
     "currentRate": "Current Rate",
     "changeYesterday": "Change (Yesterday)",
-    "maxMin": "Max / Min"
+    "maxMin": "Max / Min",
+    "title": "Currency Detail"
   },
   "insights": {
     "title": "Insights",

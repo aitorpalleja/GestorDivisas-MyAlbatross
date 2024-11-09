@@ -14,11 +14,11 @@
     "loadData": "Error al cargar datos"
   },
   "currencyDetail": {
-    "title": "Detalles de {{currencyCode}}",
     "errorLoading": "Error al cargar detalles de la divisa",
     "currentRate": "Tasa actual",
     "changeYesterday": "Cambio (Ayer)",
-    "maxMin": "Máx / Mín"
+    "maxMin": "Máx / Mín",
+    "title": "Detalle de moneda"
   },
   "insights": {
     "title": "Perspectivas",
