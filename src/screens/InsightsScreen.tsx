@@ -9,6 +9,7 @@ import {
 import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../stores/themeStore';
 import {useCurrencies} from '../services/apiClient';
+import {useTranslation} from 'react-i18next';
 
 type Currency = {
   code: string;
@@ -19,6 +20,7 @@ type Currency = {
 const InsightsScreen = () => {
   const {theme} = useThemeStore();
   const {currencies, isLoading, isError} = useCurrencies();
+  const {t} = useTranslation();
 
   if (isLoading)
     return (
@@ -41,7 +43,7 @@ const InsightsScreen = () => {
           {backgroundColor: theme.background},
         ]}>
         <Text style={[styles.errorText, {color: theme.text}]}>
-          Error loading insights
+          {t('insights.errorLoading')}
         </Text>
       </View>
     );
@@ -69,16 +71,18 @@ const InsightsScreen = () => {
 
   return (
     <ScrollView style={[styles.container, {backgroundColor: theme.background}]}>
-      <Text style={[styles.title, {color: theme.text}]}>Insights</Text>
+      <Text style={[styles.title, {color: theme.text}]}>
+        {t('insights.title')}
+      </Text>
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, {color: theme.text}]}>
-          Daily Highlights
+          {t('insights.dailyHighlights')}
         </Text>
         <View style={styles.cardContainer}>
           <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
             <Text style={[styles.cardTitle, {color: theme.text}]}>
-              Top Gainers
+              {t('insights.topGainers')}
             </Text>
             {topGainers.map(currency => (
               <Text
@@ -91,7 +95,7 @@ const InsightsScreen = () => {
           </View>
           <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
             <Text style={[styles.cardTitle, {color: theme.text}]}>
-              Top Losers
+              {t('insights.topLosers')}
             </Text>
             {topLosers.map(currency => (
               <Text
@@ -107,11 +111,11 @@ const InsightsScreen = () => {
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, {color: theme.text}]}>
-          Global Trends
+          {t('insights.globalTrends')}
         </Text>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
           <Text style={[styles.cardText, {color: theme.text}]}>
-            Average Change: {averageChange.toFixed(4)}
+            {t('insights.averageChange')}: {averageChange.toFixed(4)}
           </Text>
         </View>
         <LineChart
@@ -132,7 +136,7 @@ const InsightsScreen = () => {
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, {color: theme.text}]}>
-          Most Popular Currencies
+          {t('insights.mostPopularCurrencies')}
         </Text>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
           {currencies.slice(0, 5).map((currency: Currency) => (

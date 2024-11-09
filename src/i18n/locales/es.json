@@ -19,5 +19,15 @@
     "currentRate": "Tasa actual",
     "changeYesterday": "Cambio (Ayer)",
     "maxMin": "Máx / Mín"
+  },
+  "insights": {
+    "title": "Perspectivas",
+    "errorLoading": "Error al cargar perspectivas",
+    "dailyHighlights": "Destacados del día",
+    "topGainers": "Mayores Ganadores",
+    "topLosers": "Mayores Perdedores",
+    "globalTrends": "Tendencias Globales",
+    "averageChange": "Cambio Promedio",
+    "mostPopularCurrencies": "Monedas Más Populares"
   }
 }

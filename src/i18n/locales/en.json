@@ -20,5 +20,15 @@
     "currentRate": "Current Rate",
     "changeYesterday": "Change (Yesterday)",
     "maxMin": "Max / Min"
+  },
+  "insights": {
+    "title": "Insights",
+    "errorLoading": "Error loading insights",
+    "dailyHighlights": "Daily Highlights",
+    "topGainers": "Top Gainers",
+    "topLosers": "Top Losers",
+    "globalTrends": "Global Trends",
+    "averageChange": "Average Change",
+    "mostPopularCurrencies": "Most Popular Currencies"
   }
 }
