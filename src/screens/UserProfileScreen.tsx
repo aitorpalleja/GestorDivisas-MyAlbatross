@@ -46,7 +46,11 @@ const UserProfileScreen = () => {
   const handleUpdate = async () => {
     try {
       setIsUpdating(true);
-      await updateUserData(userData.id, editingData);
+      const dataToUpdate = {
+        ...editingData,
+        birthDate: editingData.birthDate.toISOString(),
+      };
+      await updateUserData(userData.id, dataToUpdate);
       setIsUpdating(false);
     } catch (error) {
       setIsUpdating(false);
