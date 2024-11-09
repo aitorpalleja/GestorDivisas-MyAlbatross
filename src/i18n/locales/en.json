@@ -7,7 +7,9 @@
     "birthDate": "Birth Date",
     "update": "Update",
     "success": "Data updated successfully",
-    "error": "Could not update data"
+    "error": "Could not update data",
+    "greeting": "Hi,"
+
   },
   "error": {
     "loadData": "Error loading data"

@@ -2,10 +2,12 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {useThemeStore} from '../stores/themeStore';
 import {useUserData} from '../services/apiClient';
+import {useTranslation} from 'react-i18next';
 
 const CustomHeader = () => {
   const {theme} = useThemeStore();
   const {userData} = useUserData();
+  const {t} = useTranslation();
 
   if (!userData) return null;
 
@@ -18,7 +20,9 @@ const CustomHeader = () => {
     <View style={[styles.container, {backgroundColor: theme.backgroundHeader}]}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <View style={styles.userInfo}>
-        <Text style={[styles.greeting, {color: theme.text}]}>Hi,</Text>
+        <Text style={[styles.greeting, {color: theme.text}]}>
+          {t('user.greeting')}
+        </Text>
         <Text style={[styles.name, {color: theme.text}]}>{firstName}</Text>
       </View>
       <View style={[styles.initialsBox, {backgroundColor: theme.primary}]}>

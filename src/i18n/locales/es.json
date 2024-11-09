@@ -7,7 +7,9 @@
     "birthDate": "Fecha de nacimiento",
     "update": "Actualizar",
     "success": "Datos actualizados correctamente",
-    "error": "No se pudieron actualizar los datos"
+    "error": "No se pudieron actualizar los datos",
+    "greeting": "Hola,"
+
   },
   "error": {
     "loadData": "Error al cargar datos"
