@@ -9,9 +9,16 @@
     "success": "Data updated successfully",
     "error": "Could not update data",
     "greeting": "Hi,"
-
   },
   "error": {
     "loadData": "Error loading data"
+  },
+
+  "currencyDetail": {
+    "title": "{{currencyCode}} Details",
+    "errorLoading": "Error loading currency details",
+    "currentRate": "Current Rate",
+    "changeYesterday": "Change (Yesterday)",
+    "maxMin": "Max / Min"
   }
 }

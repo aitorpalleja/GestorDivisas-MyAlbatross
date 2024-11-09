@@ -4,6 +4,7 @@ import {useRoute, RouteProp} from '@react-navigation/native';
 import {useCurrencyDetails} from '../services/apiClient';
 import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../stores/themeStore';
+import {useTranslation} from 'react-i18next';
 import {CurrencyStackParamList} from '../navigation/types';
 
 interface HistoryEntry {
@@ -17,6 +18,7 @@ const CurrencyDetailScreen = () => {
   const {theme} = useThemeStore();
   const {currencyDetails, isLoading, isError} =
     useCurrencyDetails(currencyCode);
+  const {t} = useTranslation();
 
   if (isLoading)
     return (
@@ -39,7 +41,7 @@ const CurrencyDetailScreen = () => {
           {backgroundColor: theme.background},
         ]}>
         <Text style={[styles.errorText, {color: theme.text}]}>
-          Error al cargar detalles de la divisa
+          {t('currencyDetail.errorLoading')}
         </Text>
       </View>
     );
@@ -59,7 +61,7 @@ const CurrencyDetailScreen = () => {
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
       <Text style={[styles.title, {color: theme.text}]}>
-        {currencyDetails.code} Details
+        {t('currencyDetail.title', {currencyCode: currencyDetails.code})}
       </Text>
 
       <LineChart
@@ -79,7 +81,7 @@ const CurrencyDetailScreen = () => {
       <View style={styles.cardsContainer}>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
           <Text style={[styles.cardTitle, {color: theme.text}]}>
-            Current Rate
+            {t('currencyDetail.currentRate')}
           </Text>
           <Text style={[styles.cardValue, {color: theme.primary}]}>
             {currencyDetails.currentRate.toFixed(4)}
@@ -87,7 +89,7 @@ const CurrencyDetailScreen = () => {
         </View>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
           <Text style={[styles.cardTitle, {color: theme.text}]}>
-            Change (Yesterday)
+            {t('currencyDetail.changeYesterday')}
           </Text>
           <Text
             style={[
@@ -103,7 +105,9 @@ const CurrencyDetailScreen = () => {
           </Text>
         </View>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
-          <Text style={[styles.cardTitle, {color: theme.text}]}>Max / Min</Text>
+          <Text style={[styles.cardTitle, {color: theme.text}]}>
+            {t('currencyDetail.maxMin')}
+          </Text>
           <Text style={[styles.cardValue, {color: theme.text}]}>
             {maxRate.toFixed(4)} / {minRate.toFixed(4)}
           </Text>
