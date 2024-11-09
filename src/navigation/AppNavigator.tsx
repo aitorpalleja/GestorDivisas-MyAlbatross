@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home, User, BarChart3, Settings} from 'lucide-react-native';
+import {Home, User, BarChart3, Settings, TrendingUp} from 'lucide-react-native';
 import CurrencyListScreen from '../screens/CurrencyListScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import CurrencyDetailScreen from '../screens/CurrencyDetailScreen';
@@ -10,6 +10,7 @@ import InsightsScreen from '../screens/InsightsScreen';
 import CustomHeader from '../components/CustomHeader';
 import FloatingMenu from '../components/FloatingMenu';
 import {useThemeStore} from '../stores/themeStore';
+import TrendsScreen from '../screens/TrendsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -57,6 +58,8 @@ const AppNavigator = () => {
                 return <User color={color} size={size} />;
               } else if (route.name === 'Insights') {
                 return <BarChart3 color={color} size={size} />;
+              } else if (route.name === 'Trends') {
+                return <TrendingUp color={color} size={size} />;
               } else if (route.name === 'Settings') {
                 return <Settings color={color} size={size} />;
               }
@@ -82,6 +85,13 @@ const AppNavigator = () => {
             }}
           />
           <Tab.Screen
+            name="Trends"
+            component={TrendsScreen}
+            options={{
+              header: () => <CustomHeader />,
+            }}
+          />
+          <Tab.Screen
             name="User"
             component={UserProfileScreen}
             options={{
@@ -101,7 +111,6 @@ const AppNavigator = () => {
         </Tab.Navigator>
       </NavigationContainer>
 
-      {/* Menú flotante */}
       <FloatingMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
