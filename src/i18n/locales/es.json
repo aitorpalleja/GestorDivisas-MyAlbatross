@@ -29,5 +29,9 @@
     "globalTrends": "Tendencias Globales",
     "averageChange": "Cambio Promedio",
     "mostPopularCurrencies": "Monedas Más Populares"
+  },
+  "trends": {
+    "title": "Tendencias",
+    "errorLoading": "Error al cargar tendencias"
   }
 }

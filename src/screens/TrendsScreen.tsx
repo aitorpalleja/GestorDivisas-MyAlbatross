@@ -9,6 +9,7 @@ import {
 import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../stores/themeStore';
 import {useCurrencies} from '../services/apiClient';
+import {useTranslation} from 'react-i18next';
 
 type Currency = {
   code: string;
@@ -34,6 +35,7 @@ const TrendsScreen = () => {
     Record<string, CurrencyDetail>
   >({});
   const [loadingDetails, setLoadingDetails] = useState(true);
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchAllDetails = async () => {
@@ -72,7 +74,7 @@ const TrendsScreen = () => {
           {backgroundColor: theme.background},
         ]}>
         <Text style={[styles.errorText, {color: theme.text}]}>
-          Error loading trends
+          {t('trends.errorLoading')}
         </Text>
       </View>
     );
@@ -81,7 +83,9 @@ const TrendsScreen = () => {
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       style={[styles.container, {backgroundColor: theme.background}]}>
-      <Text style={[styles.title, {color: theme.text}]}>Trends</Text>
+      <Text style={[styles.title, {color: theme.text}]}>
+        {t('trends.title')}
+      </Text>
 
       {currencies.map((currency: Currency) => {
         const detail = currencyDetails[currency.code];
