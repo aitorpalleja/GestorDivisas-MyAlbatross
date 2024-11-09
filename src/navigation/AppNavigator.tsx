@@ -67,7 +67,7 @@ const AppNavigator = () => {
             tabBarActiveTintColor: theme.primary,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
-              backgroundColor: theme.background,
+              backgroundColor: theme.backgroundHeader,
               borderTopWidth: 0,
             },
             tabBarShowLabel: false,
