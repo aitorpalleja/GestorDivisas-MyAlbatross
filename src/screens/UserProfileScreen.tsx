@@ -7,10 +7,9 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
+import DatePicker from 'react-native-date-picker';
 import {useUserData, updateUserData} from '../services/apiClient';
 import {useThemeStore} from '../stores/themeStore';
-import LanguageSwitch from '../components/LanguageSwitch';
-import DarkModeSwitch from '../components/DarkModeSwitch';
 import {useTranslation} from 'react-i18next';
 
 const UserProfileScreen = () => {
@@ -22,10 +21,11 @@ const UserProfileScreen = () => {
     name: '',
     username: '',
     email: '',
-    birthDate: '',
+    birthDate: new Date(),
   });
 
   const [isUpdating, setIsUpdating] = useState(false);
+  const [openDatePicker, setOpenDatePicker] = useState(false);
 
   if (isLoading)
     return (
@@ -61,7 +61,7 @@ const UserProfileScreen = () => {
       </Text>
 
       <View style={styles.infoContainer}>
-        {['name', 'username', 'email', 'birthDate'].map(field => (
+        {['name', 'username', 'email'].map(field => (
           <View
             key={field}
             style={[styles.card, {backgroundColor: theme.cardBackground}]}>
@@ -81,6 +81,38 @@ const UserProfileScreen = () => {
             />
           </View>
         ))}
+
+        <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
+          <Text style={[styles.label, {color: theme.text}]}>
+            {t('user.birthDate')}
+          </Text>
+          <TouchableOpacity
+            onPress={() => setOpenDatePicker(true)}
+            style={[
+              styles.input,
+              {justifyContent: 'center', borderColor: theme.border},
+            ]}>
+            <Text style={{color: theme.text}}>
+              {editingData.birthDate
+                ? editingData.birthDate.toLocaleDateString()
+                : t('user.selectDate')}
+            </Text>
+          </TouchableOpacity>
+          <DatePicker
+            modal
+            open={openDatePicker}
+            date={editingData.birthDate || new Date()}
+            mode="date"
+            onConfirm={date => {
+              setOpenDatePicker(false);
+              setEditingData(prev => ({...prev, birthDate: date}));
+            }}
+            onCancel={() => {
+              setOpenDatePicker(false);
+            }}
+            theme={'dark'}
+          />
+        </View>
       </View>
 
       <TouchableOpacity
