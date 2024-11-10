@@ -71,10 +71,6 @@ const InsightsScreen = () => {
 
   return (
     <ScrollView style={[styles.container, {backgroundColor: theme.background}]}>
-      <Text style={[styles.title, {color: theme.text}]}>
-        {t('insights.title')}
-      </Text>
-
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, {color: theme.text}]}>
           {t('insights.dailyHighlights')}

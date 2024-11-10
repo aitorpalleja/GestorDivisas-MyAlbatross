@@ -60,10 +60,6 @@ const CurrencyDetailScreen = () => {
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      <Text style={[styles.title, {color: theme.text}]}>
-        {t('currencyDetail.title', {currencyCode: currencyDetails.code})}
-      </Text>
-
       <LineChart
         data={chartData}
         thickness={2}

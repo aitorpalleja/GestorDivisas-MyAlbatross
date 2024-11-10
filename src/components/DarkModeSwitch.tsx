@@ -7,7 +7,8 @@ const DarkModeSwitch = () => {
   const {isDarkMode, toggleTheme, theme} = useThemeStore();
 
   return (
-    <TouchableOpacity onPress={toggleTheme} style={styles.button}>
+    <TouchableOpacity
+    activeOpacity={0.7} onPress={toggleTheme} style={styles.button}>
       {isDarkMode ? (
         <Moon size={20} color="#FFD700" />
       ) : (

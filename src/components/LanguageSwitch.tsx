@@ -13,7 +13,8 @@ const LanguageSwitch = () => {
   };
 
   return (
-    <TouchableOpacity onPress={toggleLanguage} style={styles.button}>
+    <TouchableOpacity
+    activeOpacity={0.7} onPress={toggleLanguage} style={styles.button}>
       <Flag size={20} color={isEnglish ? '#FFD700' : '#C70039'} />
     </TouchableOpacity>
   );

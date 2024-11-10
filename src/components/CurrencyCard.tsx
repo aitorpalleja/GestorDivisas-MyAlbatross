@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { TrendingDown, TrendingUp } from 'lucide-react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {TrendingDown, TrendingUp} from 'lucide-react-native';
 
 interface CurrencyCardProps {
   code: string;
@@ -13,22 +13,30 @@ interface CurrencyCardProps {
   };
 }
 
-const CurrencyCard = ({ code, currentRate, difference, onPress, theme }: CurrencyCardProps) => {
+const CurrencyCard = ({
+  code,
+  currentRate,
+  difference,
+  onPress,
+  theme,
+}: CurrencyCardProps) => {
   const isPositive = difference >= 0;
 
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       onPress={onPress}
       style={[
         styles.card,
         {
           backgroundColor: theme.cardBackground,
         },
-      ]}
-    >
+      ]}>
       <View style={styles.content}>
-        <Text style={[styles.code, { color: theme.text }]}>{code}</Text>
-        <Text style={[styles.rate, { color: theme.text }]}>{currentRate.toFixed(4)}</Text>
+        <Text style={[styles.code, {color: theme.text}]}>{code}</Text>
+        <Text style={[styles.rate, {color: theme.text}]}>
+          {currentRate.toFixed(4)}
+        </Text>
         <View style={styles.differenceContainer}>
           {isPositive ? (
             <TrendingUp size={16} color="#22c55e" />
@@ -41,8 +49,7 @@ const CurrencyCard = ({ code, currentRate, difference, onPress, theme }: Currenc
               {
                 color: isPositive ? '#22c55e' : '#ef4444',
               },
-            ]}
-          >
+            ]}>
             {difference.toFixed(4)}
           </Text>
         </View>

@@ -83,10 +83,6 @@ const TrendsScreen = () => {
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       style={[styles.container, {backgroundColor: theme.background}]}>
-      <Text style={[styles.title, {color: theme.text}]}>
-        {t('trends.title')}
-      </Text>
-
       {currencies.map((currency: Currency) => {
         const detail = currencyDetails[currency.code];
         if (!detail) return null;

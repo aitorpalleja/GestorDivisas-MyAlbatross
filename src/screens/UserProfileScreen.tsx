@@ -60,10 +60,6 @@ const UserProfileScreen = () => {
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      <Text style={[styles.title, {color: theme.text}]}>
-        {t('user.profile')}
-      </Text>
-
       <View style={styles.infoContainer}>
         {['name', 'username', 'email'].map(field => (
           <View
@@ -91,6 +87,7 @@ const UserProfileScreen = () => {
             {t('user.birthDate')}
           </Text>
           <TouchableOpacity
+    activeOpacity={0.7}
             onPress={() => setOpenDatePicker(true)}
             style={[
               styles.input,
@@ -120,6 +117,7 @@ const UserProfileScreen = () => {
       </View>
 
       <TouchableOpacity
+    activeOpacity={0.7}
         onPress={handleUpdate}
         style={[styles.button, {backgroundColor: theme.primary}]}
         disabled={isUpdating}>
