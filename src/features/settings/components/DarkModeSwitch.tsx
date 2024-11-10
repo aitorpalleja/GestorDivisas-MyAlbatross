@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import {Moon, Sun} from 'lucide-react-native';
-import {useThemeStore} from '../stores/themeStore';
+import {useThemeStore} from '../../../stores/themeStore';
 
 const DarkModeSwitch = () => {
   const {isDarkMode, toggleTheme, theme} = useThemeStore();

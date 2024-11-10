@@ -10,12 +10,7 @@ import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../../../stores/themeStore';
 import {useCurrencies} from '../../../services/apiClient';
 import {useTranslation} from 'react-i18next';
-
-type Currency = {
-  code: string;
-  currentRate: number;
-  differenceBetweenYesterdayRate: number;
-};
+import {CurrencyProps} from '../interfaces/CurrencyProps';
 
 const InsightsScreen = () => {
   const {theme} = useThemeStore();
@@ -59,12 +54,12 @@ const InsightsScreen = () => {
 
   const averageChange =
     currencies.reduce(
-      (acc: number, curr: Currency) =>
+      (acc: number, curr: CurrencyProps) =>
         acc + curr.differenceBetweenYesterdayRate,
       0,
     ) / currencies.length;
 
-  const chartData = currencies.map((currency: Currency) => ({
+  const chartData = currencies.map((currency: CurrencyProps) => ({
     value: currency.currentRate,
     label: currency.code,
   }));
@@ -135,7 +130,7 @@ const InsightsScreen = () => {
           {t('insights.mostPopularCurrencies')}
         </Text>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
-          {currencies.slice(0, 5).map((currency: Currency) => (
+          {currencies.slice(0, 5).map((currency: CurrencyProps) => (
             <Text
               key={currency.code}
               style={[styles.cardText, {color: theme.text}]}>

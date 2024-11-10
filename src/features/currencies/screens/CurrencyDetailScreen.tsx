@@ -6,11 +6,7 @@ import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../../../stores/themeStore';
 import {useTranslation} from 'react-i18next';
 import {CurrencyStackParamList} from '../../../navigation/types';
-
-interface HistoryEntry {
-  rate: number;
-  date: string;
-}
+import {HistoryEntryProps} from '../interfaces/HistoryEntryProps';
 
 const CurrencyDetailScreen = () => {
   const route = useRoute<RouteProp<CurrencyStackParamList, 'CurrencyDetail'>>();
@@ -46,16 +42,16 @@ const CurrencyDetailScreen = () => {
       </View>
     );
 
-  const chartData = currencyDetails.history.map((entry: HistoryEntry) => ({
+  const chartData = currencyDetails.history.map((entry: HistoryEntryProps) => ({
     value: entry.rate,
     label: entry.date.slice(5),
   }));
 
   const maxRate = Math.max(
-    ...currencyDetails.history.map((entry: HistoryEntry) => entry.rate),
+    ...currencyDetails.history.map((entry: HistoryEntryProps) => entry.rate),
   );
   const minRate = Math.min(
-    ...currencyDetails.history.map((entry: HistoryEntry) => entry.rate),
+    ...currencyDetails.history.map((entry: HistoryEntryProps) => entry.rate),
   );
 
   return (

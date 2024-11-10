@@ -1,17 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {TrendingDown, TrendingUp} from 'lucide-react-native';
-
-interface CurrencyCardProps {
-  code: string;
-  currentRate: number;
-  difference: number;
-  onPress: () => void;
-  theme: {
-    cardBackground: string;
-    text: string;
-  };
-}
+import {CurrencyCardProps} from '../interfaces/CurrencyCardProps';
 
 const CurrencyCard = ({
   code,

@@ -1,13 +1,9 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Animated, StyleSheet} from 'react-native';
-import {Sun, Moon, Flag, Languages} from 'lucide-react-native';
+import {TouchableOpacity, Animated, StyleSheet} from 'react-native';
+import {Sun, Moon, Languages} from 'lucide-react-native';
 import {useThemeStore} from '../../../stores/themeStore';
 import i18next from 'i18next';
-
-interface SettingsMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import {SettingsMenuProps} from '../interface/SettingsMenuProps';
 
 const SettingsMenu = ({isOpen, onClose}: SettingsMenuProps) => {
   const {isDarkMode, toggleTheme, theme} = useThemeStore();

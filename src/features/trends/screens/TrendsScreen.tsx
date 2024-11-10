@@ -10,18 +10,12 @@ import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../../../stores/themeStore';
 import {useCurrencies} from '../../../services/apiClient';
 import {useTranslation} from 'react-i18next';
+import {CurrencyDetailProps} from '../interfaces/CurrencyDetailProps';
+import {CurrencyProps} from '../interfaces/CurrencyProps';
 
-type Currency = {
-  code: string;
-  currentRate: number;
-  differenceBetweenYesterdayRate: number;
-};
-
-type CurrencyDetail = {
-  history: {rate: number; date: string}[];
-};
-
-const fetchCurrencyDetails = async (code: string): Promise<CurrencyDetail> => {
+const fetchCurrencyDetails = async (
+  code: string,
+): Promise<CurrencyDetailProps> => {
   const response = await fetch(
     `https://myalbatross-technical-proof-api.pages.dev/currencies/${code}`,
   );
@@ -32,14 +26,14 @@ const TrendsScreen = () => {
   const {theme} = useThemeStore();
   const {currencies, isLoading, isError} = useCurrencies();
   const [currencyDetails, setCurrencyDetails] = useState<
-    Record<string, CurrencyDetail>
+    Record<string, CurrencyDetailProps>
   >({});
   const [loadingDetails, setLoadingDetails] = useState(true);
   const {t} = useTranslation();
 
   useEffect(() => {
     const fetchAllDetails = async () => {
-      const details: Record<string, CurrencyDetail> = {};
+      const details: Record<string, CurrencyDetailProps> = {};
       for (const currency of currencies) {
         const detail = await fetchCurrencyDetails(currency.code);
         details[currency.code] = detail;
@@ -83,7 +77,7 @@ const TrendsScreen = () => {
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       style={[styles.container, {backgroundColor: theme.background}]}>
-      {currencies.map((currency: Currency) => {
+      {currencies.map((currency: CurrencyProps) => {
         const detail = currencyDetails[currency.code];
         if (!detail) return null;
 
