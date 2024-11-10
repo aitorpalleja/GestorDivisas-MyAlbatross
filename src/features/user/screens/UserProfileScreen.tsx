@@ -8,8 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import {useUserData, updateUserData} from '../services/apiClient';
-import {useThemeStore} from '../stores/themeStore';
+import {useUserData, updateUserData} from '../../../services/apiClient';
+import {useThemeStore} from '../../../stores/themeStore';
 import {useTranslation} from 'react-i18next';
 
 const UserProfileScreen = () => {
@@ -87,7 +87,7 @@ const UserProfileScreen = () => {
             {t('user.birthDate')}
           </Text>
           <TouchableOpacity
-    activeOpacity={0.7}
+            activeOpacity={0.7}
             onPress={() => setOpenDatePicker(true)}
             style={[
               styles.input,
@@ -117,7 +117,7 @@ const UserProfileScreen = () => {
       </View>
 
       <TouchableOpacity
-    activeOpacity={0.7}
+        activeOpacity={0.7}
         onPress={handleUpdate}
         style={[styles.button, {backgroundColor: theme.primary}]}
         disabled={isUpdating}>

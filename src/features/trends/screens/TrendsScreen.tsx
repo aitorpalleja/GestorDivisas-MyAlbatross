@@ -7,8 +7,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {LineChart} from 'react-native-gifted-charts';
-import {useThemeStore} from '../stores/themeStore';
-import {useCurrencies} from '../services/apiClient';
+import {useThemeStore} from '../../../stores/themeStore';
+import {useCurrencies} from '../../../services/apiClient';
 import {useTranslation} from 'react-i18next';
 
 type Currency = {

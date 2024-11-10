@@ -1,8 +1,8 @@
-import { NavigatorScreenParams } from '@react-navigation/native';
+import {NavigatorScreenParams} from '@react-navigation/native';
 
 export type CurrencyStackParamList = {
   CurrencyList: undefined;
-  CurrencyDetail: { currencyCode: string };
+  CurrencyDetail: {currencyCode: string};
 };
 
 export type RootTabParamList = {

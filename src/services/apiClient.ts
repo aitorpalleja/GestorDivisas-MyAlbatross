@@ -43,7 +43,15 @@ export const useUserData = () => {
 };
 
 // Función para actualizar datos del usuario
-export const updateUserData = async (userId: number, updatedData: Partial<{ name: string; username: string; email: string; birthDate: string }>) => {
+export const updateUserData = async (
+  userId: number,
+  updatedData: Partial<{
+    name: string;
+    username: string;
+    email: string;
+    birthDate: string;
+  }>,
+) => {
   const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
     method: 'PUT',
     headers: {
@@ -58,4 +66,3 @@ export const updateUserData = async (userId: number, updatedData: Partial<{ name
 
   return response.json();
 };
-

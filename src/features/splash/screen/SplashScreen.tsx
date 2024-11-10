@@ -1,10 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 import {View, StyleSheet, Animated, Image} from 'react-native';
-import {useThemeStore} from '../stores/themeStore';
+import {useThemeStore} from '../../../stores/themeStore';
 
 const SplashScreen = () => {
   const {theme} = useThemeStore();
-  const fadeAnim = useRef(new Animated.Value(0)).current; 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.8)).current;
 
   useEffect(() => {
@@ -16,15 +16,15 @@ const SplashScreen = () => {
           useNativeDriver: true,
         }),
         Animated.spring(scaleAnim, {
-          toValue: 1, 
+          toValue: 1,
           friction: 5,
           useNativeDriver: true,
         }),
       ]),
-      Animated.delay(1000), 
+      Animated.delay(1000),
       Animated.parallel([
         Animated.timing(fadeAnim, {
-          toValue: 0, 
+          toValue: 0,
           duration: 1000,
           useNativeDriver: true,
         }),
@@ -40,7 +40,7 @@ const SplashScreen = () => {
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
       <Animated.Image
-        source={require('../assets/logo.png')}
+        source={require('../../../assets/logo.png')}
         style={[
           styles.logo,
           {

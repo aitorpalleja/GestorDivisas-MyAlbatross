@@ -56,7 +56,7 @@ const FloatingMenu = ({isOpen, onClose}: FloatingMenuProps) => {
           },
         ]}>
         <TouchableOpacity
-    activeOpacity={0.7}
+          activeOpacity={0.7}
           onPress={handleThemeToggle}
           style={[styles.menuItem, {backgroundColor: theme.cardBackground}]}>
           {isDarkMode ? (
@@ -66,7 +66,7 @@ const FloatingMenu = ({isOpen, onClose}: FloatingMenuProps) => {
           )}
         </TouchableOpacity>
         <TouchableOpacity
-    activeOpacity={0.7}
+          activeOpacity={0.7}
           onPress={handleLanguageToggle}
           style={[styles.menuItem, {backgroundColor: theme.cardBackground}]}>
           <Languages size={20} color={theme.text} />

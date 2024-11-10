@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import AppNavigator from './src/navigation/AppNavigator';
-import { useThemeStore } from './src/stores/themeStore';
+import {useThemeStore} from './src/stores/themeStore';
 import './src/i18n';
 
 const App = () => {
-  const { theme } = useThemeStore();
+  const {theme} = useThemeStore();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={[styles.container, {backgroundColor: theme.background}]}>
       <AppNavigator />
     </View>
   );

@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
 import {useRoute, RouteProp} from '@react-navigation/native';
-import {useCurrencyDetails} from '../services/apiClient';
+import {useCurrencyDetails} from '../../../services/apiClient';
 import {LineChart} from 'react-native-gifted-charts';
-import {useThemeStore} from '../stores/themeStore';
+import {useThemeStore} from '../../../stores/themeStore';
 import {useTranslation} from 'react-i18next';
-import {CurrencyStackParamList} from '../navigation/types';
+import {CurrencyStackParamList} from '../../../navigation/types';
 
 interface HistoryEntry {
   rate: number;
