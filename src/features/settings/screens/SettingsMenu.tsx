@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, Animated, StyleSheet} from 'react-native';
 import {Sun, Moon, Flag, Languages} from 'lucide-react-native';
-import {useThemeStore} from '../stores/themeStore';
+import {useThemeStore} from '../../../stores/themeStore';
 import i18next from 'i18next';
 
-interface FloatingMenuProps {
+interface SettingsMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const FloatingMenu = ({isOpen, onClose}: FloatingMenuProps) => {
+const SettingsMenu = ({isOpen, onClose}: SettingsMenuProps) => {
   const {isDarkMode, toggleTheme, theme} = useThemeStore();
   const [animation] = useState(new Animated.Value(0));
 
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FloatingMenu;
+export default SettingsMenu;

@@ -8,11 +8,11 @@ import UserProfileScreen from '../features/user/screens/UserProfileScreen';
 import CurrencyDetailScreen from '../features/currencies/screens/CurrencyDetailScreen';
 import InsightsScreen from '../features/insights/screens/InsightsScreen';
 import CustomHeader from '../components/CustomHeader';
-import FloatingMenu from '../components/FloatingMenu';
 import {useThemeStore} from '../stores/themeStore';
 import TrendsScreen from '../features/trends/screens/TrendsScreen';
 import {useTranslation} from 'react-i18next';
 import SplashScreen from '../features/splash/screen/SplashScreen';
+import SettingsMenu from '../features/settings/screens/SettingsMenu';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -112,7 +112,7 @@ const MainApp = () => {
         </Tab.Screen>
       </Tab.Navigator>
 
-      <FloatingMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <SettingsMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 };
