@@ -25,7 +25,11 @@ const InsightsScreen = () => {
           styles.centered,
           {backgroundColor: theme.background},
         ]}>
-        <ActivityIndicator size="large" color={theme.primary} />
+        <ActivityIndicator
+          testID="loading-indicator"
+          size="large"
+          color={theme.primary}
+        />
       </View>
     );
 
@@ -37,7 +41,9 @@ const InsightsScreen = () => {
           styles.centered,
           {backgroundColor: theme.background},
         ]}>
-        <Text style={[styles.errorText, {color: theme.text}]}>
+        <Text
+          testID="error-text"
+          style={[styles.errorText, {color: theme.text}]}>
           {t('insights.errorLoading')}
         </Text>
       </View>
@@ -67,17 +73,22 @@ const InsightsScreen = () => {
   return (
     <ScrollView style={[styles.container, {backgroundColor: theme.background}]}>
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, {color: theme.text}]}>
+        <Text
+          testID="daily-highlights-title"
+          style={[styles.sectionTitle, {color: theme.text}]}>
           {t('insights.dailyHighlights')}
         </Text>
         <View style={styles.cardContainer}>
           <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
-            <Text style={[styles.cardTitle, {color: theme.text}]}>
+            <Text
+              testID="top-gainers-title"
+              style={[styles.cardTitle, {color: theme.text}]}>
               {t('insights.topGainers')}
             </Text>
             {topGainers.map(currency => (
               <Text
                 key={currency.code}
+                testID={`top-gainer-${currency.code}`}
                 style={[styles.cardText, {color: '#22c55e'}]}>
                 {currency.code}: +
                 {currency.differenceBetweenYesterdayRate.toFixed(4)}
@@ -85,12 +96,15 @@ const InsightsScreen = () => {
             ))}
           </View>
           <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
-            <Text style={[styles.cardTitle, {color: theme.text}]}>
+            <Text
+              testID="top-losers-title"
+              style={[styles.cardTitle, {color: theme.text}]}>
               {t('insights.topLosers')}
             </Text>
             {topLosers.map(currency => (
               <Text
                 key={currency.code}
+                testID={`top-loser-${currency.code}`}
                 style={[styles.cardText, {color: '#ef4444'}]}>
                 {currency.code}:{' '}
                 {currency.differenceBetweenYesterdayRate.toFixed(4)}
@@ -101,11 +115,15 @@ const InsightsScreen = () => {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, {color: theme.text}]}>
+        <Text
+          testID="global-trends-title"
+          style={[styles.sectionTitle, {color: theme.text}]}>
           {t('insights.globalTrends')}
         </Text>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
-          <Text style={[styles.cardText, {color: theme.text}]}>
+          <Text
+            testID="average-change-text"
+            style={[styles.cardText, {color: theme.text}]}>
             {t('insights.averageChange')}: {averageChange.toFixed(4)}
           </Text>
         </View>
@@ -126,13 +144,16 @@ const InsightsScreen = () => {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, {color: theme.text}]}>
+        <Text
+          testID="most-popular-currencies-title"
+          style={[styles.sectionTitle, {color: theme.text}]}>
           {t('insights.mostPopularCurrencies')}
         </Text>
         <View style={[styles.card, {backgroundColor: theme.cardBackground}]}>
           {currencies.slice(0, 5).map((currency: CurrencyProps) => (
             <Text
               key={currency.code}
+              testID={`popular-currency-${currency.code}`}
               style={[styles.cardText, {color: theme.text}]}>
               {currency.code}: {currency.currentRate.toFixed(4)}
             </Text>

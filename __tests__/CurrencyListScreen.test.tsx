@@ -18,7 +18,6 @@ jest.mock('@react-navigation/native', () => {
 });
 describe('CurrencyListScreen', () => {
   beforeEach(() => {
-    // Mockear el hook useCurrencies
     (useCurrencies as jest.Mock).mockReturnValue({
       currencies: [
         {
@@ -36,7 +35,6 @@ describe('CurrencyListScreen', () => {
       isError: false,
     });
 
-    // Mockear el hook useThemeStore
     (useThemeStore as unknown as jest.Mock).mockReturnValue({
       theme: {
         background: '#ffffff',

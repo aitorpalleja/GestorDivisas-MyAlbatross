@@ -1,5 +1,3 @@
-// __tests__/UserProfileScreen.test.tsx
-
 import React from 'react';
 import {render, waitFor} from '@testing-library/react-native';
 import UserProfileScreen from '../src/features/user/screens/UserProfileScreen';
@@ -15,7 +13,6 @@ jest.mock('react-i18next', () => ({
 
 describe('UserProfileScreen', () => {
   beforeEach(() => {
-    // Mockear el tema
     (useThemeStore as unknown as jest.Mock).mockReturnValue({
       theme: {
         background: '#ffffff',
@@ -26,7 +23,6 @@ describe('UserProfileScreen', () => {
       },
     });
 
-    // Mockear datos de usuario
     (useUserData as jest.Mock).mockReturnValue({
       userData: {
         id: 1,
@@ -47,15 +43,12 @@ describe('UserProfileScreen', () => {
       </NavigationContainer>,
     );
 
-    // Esperar a que se renderice la pantalla
     await waitFor(() => {
       expect(getByPlaceholderText('user.name')).toBeTruthy();
     });
 
-    // Verificar que los campos contienen los datos correctos
     expect(getByDisplayValue('Juan Pérez')).toBeTruthy();
     expect(getByDisplayValue('juanp')).toBeTruthy();
     expect(getByDisplayValue('juanp@example.com')).toBeTruthy();
-    // Para la fecha de nacimiento, podrías necesitar formatearla
   });
 });

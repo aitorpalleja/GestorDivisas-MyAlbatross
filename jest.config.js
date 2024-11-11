@@ -18,6 +18,7 @@ module.exports = {
       '|@react-native' +
       '|@react-native-community' +
       '|react-native-date-picker' +
+      '|react-native-gifted-charts' +
       '|@react-navigation' +
       ')/)',
   ],
