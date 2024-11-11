@@ -42,7 +42,11 @@ const TrendsScreen = () => {
           styles.centered,
           {backgroundColor: theme.background},
         ]}>
-        <ActivityIndicator size="large" color={theme.primary} />
+        <ActivityIndicator
+          testID="loading-indicator"
+          size="large"
+          color={theme.primary}
+        />
       </View>
     );
 
@@ -54,7 +58,9 @@ const TrendsScreen = () => {
           styles.centered,
           {backgroundColor: theme.background},
         ]}>
-        <Text style={[styles.errorText, {color: theme.text}]}>
+        <Text
+          testID="error-text"
+          style={[styles.errorText, {color: theme.text}]}>
           {t('trends.errorLoading')}
         </Text>
       </View>
@@ -77,15 +83,19 @@ const TrendsScreen = () => {
         return (
           <View
             key={currency.code}
+            testID={`currency-card-${currency.code}`}
             style={[styles.card, {backgroundColor: theme.cardBackground}]}>
             <View style={styles.cardHeader}>
               <View
+                testID={`trend-indicator-${currency.code}`}
                 style={[
                   styles.trendIndicator,
                   {backgroundColor: isPositive ? '#22c55e' : '#ef4444'},
                 ]}
               />
-              <Text style={[styles.cardTitle, {color: theme.text}]}>
+              <Text
+                testID={`currency-code-${currency.code}`}
+                style={[styles.cardTitle, {color: theme.text}]}>
                 {currency.code}
               </Text>
             </View>
