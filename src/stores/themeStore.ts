@@ -1,9 +1,11 @@
 import {create} from 'zustand';
 import {darkTheme, lightTheme} from '../styles/theme';
 
+import type {Theme} from '../styles/theme';
+
 type ThemeState = {
   isDarkMode: boolean;
-  theme: typeof darkTheme;
+  theme: Theme;
   toggleTheme: () => void;
 };
 

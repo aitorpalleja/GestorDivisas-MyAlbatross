@@ -2,13 +2,23 @@ export const colors = {
   primary: '#58d3a4',
   backgroundDark: '#202327',
   backgroundDarker: '#181A1B',
-  backgroundLight: '#ffffff',
+  backgroundLight: '#f3f6f4',
   cardBackground: '#2A2F33',
   textDark: '#ffffff',
   textLight: '#202327',
+  headerLightBackground: '#f3f3f3',
 };
 
-export const darkTheme = {
+export type Theme = {
+  background: string;
+  text: string;
+  primary: string;
+  cardBackground: string;
+  border: string;
+  backgroundHeader: string;
+};
+
+export const darkTheme: Theme = {
   background: colors.backgroundDark,
   backgroundHeader: colors.backgroundDarker,
   cardBackground: colors.cardBackground,
@@ -17,10 +27,11 @@ export const darkTheme = {
   border: colors.primary,
 };
 
-export const lightTheme = {
+export const lightTheme: Theme = {
   background: colors.backgroundLight,
+  backgroundHeader: colors.backgroundDarker,
   text: colors.textLight,
   primary: colors.primary,
-  cardBackground: colors.backgroundLight,
+  cardBackground: colors.headerLightBackground,
   border: colors.textLight,
 };
