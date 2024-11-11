@@ -14,6 +14,7 @@ const CurrencyCard = ({
 
   return (
     <TouchableOpacity
+      testID="currency-card"
       activeOpacity={0.7}
       onPress={onPress}
       style={[
