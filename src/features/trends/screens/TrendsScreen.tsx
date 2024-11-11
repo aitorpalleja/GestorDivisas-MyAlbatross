@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -8,46 +8,16 @@ import {
 } from 'react-native';
 import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../../../stores/themeStore';
-import {useCurrencies} from '../../../services/apiClient';
+import {useCurrencies, useCurrencyDetails} from '../../../services/apiClient';
 import {useTranslation} from 'react-i18next';
-import {CurrencyDetailProps} from '../interfaces/CurrencyDetailProps';
-import {CurrencyProps} from '../interfaces/CurrencyProps';
-
-const fetchCurrencyDetails = async (
-  code: string,
-): Promise<CurrencyDetailProps> => {
-  const response = await fetch(
-    `https://myalbatross-technical-proof-api.pages.dev/currencies/${code}`,
-  );
-  return response.json();
-};
+import { HistoryEntryProps } from '../../currencies/interfaces/HistoryEntryProps';
 
 const TrendsScreen = () => {
   const {theme} = useThemeStore();
   const {currencies, isLoading, isError} = useCurrencies();
-  const [currencyDetails, setCurrencyDetails] = useState<
-    Record<string, CurrencyDetailProps>
-  >({});
-  const [loadingDetails, setLoadingDetails] = useState(true);
   const {t} = useTranslation();
 
-  useEffect(() => {
-    const fetchAllDetails = async () => {
-      const details: Record<string, CurrencyDetailProps> = {};
-      for (const currency of currencies) {
-        const detail = await fetchCurrencyDetails(currency.code);
-        details[currency.code] = detail;
-      }
-      setCurrencyDetails(details);
-      setLoadingDetails(false);
-    };
-
-    if (currencies.length > 0) {
-      fetchAllDetails();
-    }
-  }, [currencies]);
-
-  if (isLoading || loadingDetails)
+  if (isLoading)
     return (
       <View
         style={[
@@ -77,12 +47,33 @@ const TrendsScreen = () => {
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       style={[styles.container, {backgroundColor: theme.background}]}>
-      {currencies.map((currency: CurrencyProps) => {
-        const detail = currencyDetails[currency.code];
-        if (!detail) return null;
+      {currencies.map(currency => {
+        const {currencyDetails, isLoading, isError} = useCurrencyDetails(
+          currency.code,
+        );
+
+        if (isLoading)
+          return (
+            <View
+              key={currency.code}
+              style={[styles.card, {backgroundColor: theme.cardBackground}]}>
+              <ActivityIndicator size="small" color={theme.primary} />
+            </View>
+          );
+
+        if (isError || !currencyDetails)
+          return (
+            <View
+              key={currency.code}
+              style={[styles.card, {backgroundColor: theme.cardBackground}]}>
+              <Text style={[styles.errorText, {color: theme.text}]}>
+                {t('trends.errorLoadingDetails')}
+              </Text>
+            </View>
+          );
 
         const isPositive = currency.differenceBetweenYesterdayRate >= 0;
-        const chartData = detail.history.map(entry => ({
+        const chartData = currencyDetails.history.map((entry: HistoryEntryProps) => ({
           value: entry.rate,
         }));
 
