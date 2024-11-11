@@ -8,17 +8,33 @@ import {
 } from 'react-native';
 import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../../../stores/themeStore';
-import {useCurrencies, useCurrencyDetails} from '../../../services/apiClient';
+import {
+  useCurrencies,
+  useAllCurrencyDetails,
+} from '../../../services/apiClient';
 import {useTranslation} from 'react-i18next';
 import {HistoryEntryProps} from '../../currencies/interfaces/HistoryEntryProps';
 import {CurrencyProps} from '../interfaces/CurrencyProps';
 
 const TrendsScreen = () => {
   const {theme} = useThemeStore();
-  const {currencies, isLoading, isError} = useCurrencies();
+  const {
+    currencies,
+    isLoading: isCurrenciesLoading,
+    isError: isCurrenciesError,
+  } = useCurrencies();
   const {t} = useTranslation();
 
-  if (isLoading)
+  const currencyCodes =
+    currencies?.map((currency: CurrencyProps) => currency.code) || [];
+
+  const {
+    allCurrencyDetails,
+    isLoading: isDetailsLoading,
+    isError: isDetailsError,
+  } = useAllCurrencyDetails(currencyCodes);
+
+  if (isCurrenciesLoading || isDetailsLoading)
     return (
       <View
         style={[
@@ -30,7 +46,7 @@ const TrendsScreen = () => {
       </View>
     );
 
-  if (isError)
+  if (isCurrenciesError || isDetailsError || !currencies || !allCurrencyDetails)
     return (
       <View
         style={[
@@ -48,30 +64,8 @@ const TrendsScreen = () => {
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       style={[styles.container, {backgroundColor: theme.background}]}>
-      {currencies.map((currency: CurrencyProps) => {
-        const {currencyDetails, isLoading, isError} = useCurrencyDetails(
-          currency.code,
-        );
-
-        if (isLoading)
-          return (
-            <View
-              key={currency.code}
-              style={[styles.card, {backgroundColor: theme.cardBackground}]}>
-              <ActivityIndicator size="small" color={theme.primary} />
-            </View>
-          );
-
-        if (isError || !currencyDetails)
-          return (
-            <View
-              key={currency.code}
-              style={[styles.card, {backgroundColor: theme.cardBackground}]}>
-              <Text style={[styles.errorText, {color: theme.text}]}>
-                {t('trends.errorLoadingDetails')}
-              </Text>
-            </View>
-          );
+      {currencies.map((currency: CurrencyProps, index: number) => {
+        const currencyDetails = allCurrencyDetails[index];
 
         const isPositive = currency.differenceBetweenYesterdayRate >= 0;
         const chartData = currencyDetails.history.map(

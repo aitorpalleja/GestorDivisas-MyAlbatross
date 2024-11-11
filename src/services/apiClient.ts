@@ -42,6 +42,27 @@ export const useUserData = () => {
   };
 };
 
+// Hook para obtener detalles de todas las divisas
+export const useAllCurrencyDetails = (currencyCodes: string[]) => {
+  const {data, error} = useSWR(
+    currencyCodes.length > 0
+      ? [`${API_BASE_URL}/currencies`, ...currencyCodes]
+      : null,
+    async () => {
+      const requests = currencyCodes.map(code =>
+        fetcher(`${API_BASE_URL}/currencies/${code}`),
+      );
+      return Promise.all(requests);
+    },
+  );
+
+  return {
+    allCurrencyDetails: data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+};
+
 // Función para actualizar datos del usuario
 export const updateUserData = async (
   userId: number,
