@@ -10,7 +10,8 @@ import {LineChart} from 'react-native-gifted-charts';
 import {useThemeStore} from '../../../stores/themeStore';
 import {useCurrencies, useCurrencyDetails} from '../../../services/apiClient';
 import {useTranslation} from 'react-i18next';
-import { HistoryEntryProps } from '../../currencies/interfaces/HistoryEntryProps';
+import {HistoryEntryProps} from '../../currencies/interfaces/HistoryEntryProps';
+import {CurrencyProps} from '../interfaces/CurrencyProps';
 
 const TrendsScreen = () => {
   const {theme} = useThemeStore();
@@ -47,7 +48,7 @@ const TrendsScreen = () => {
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       style={[styles.container, {backgroundColor: theme.background}]}>
-      {currencies.map(currency => {
+      {currencies.map((currency: CurrencyProps) => {
         const {currencyDetails, isLoading, isError} = useCurrencyDetails(
           currency.code,
         );
@@ -73,9 +74,11 @@ const TrendsScreen = () => {
           );
 
         const isPositive = currency.differenceBetweenYesterdayRate >= 0;
-        const chartData = currencyDetails.history.map((entry: HistoryEntryProps) => ({
-          value: entry.rate,
-        }));
+        const chartData = currencyDetails.history.map(
+          (entry: HistoryEntryProps) => ({
+            value: entry.rate,
+          }),
+        );
 
         return (
           <View
