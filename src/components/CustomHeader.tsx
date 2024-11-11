@@ -22,10 +22,12 @@ const CustomHeader = () => {
       <View style={styles.container}>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
         <View style={styles.userInfo}>
-          <Text style={[styles.greeting, {color: theme.text}]}>
+          <Text style={[styles.greeting, {color: theme.textHeader}]}>
             {t('user.greeting')}
           </Text>
-          <Text style={[styles.name, {color: theme.text}]}>{firstName}</Text>
+          <Text style={[styles.name, {color: theme.textHeader}]}>
+            {firstName}
+          </Text>
         </View>
         <View style={[styles.initialsBox, {backgroundColor: theme.primary}]}>
           <Text style={[styles.initialsText, {color: theme.background}]}>

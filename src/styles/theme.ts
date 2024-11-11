@@ -7,6 +7,7 @@ export const colors = {
   textDark: '#ffffff',
   textLight: '#202327',
   headerLightBackground: '#f3f3f3',
+
 };
 
 export type Theme = {
@@ -16,6 +17,7 @@ export type Theme = {
   cardBackground: string;
   border: string;
   backgroundHeader: string;
+  textHeader: string;
 };
 
 export const darkTheme: Theme = {
@@ -25,13 +27,15 @@ export const darkTheme: Theme = {
   text: colors.textDark,
   primary: colors.primary,
   border: colors.primary,
+  textHeader: colors.textDark
 };
 
 export const lightTheme: Theme = {
   background: colors.backgroundLight,
-  backgroundHeader: colors.backgroundDarker,
+  backgroundHeader: colors.cardBackground,
   text: colors.textLight,
   primary: colors.primary,
   cardBackground: colors.headerLightBackground,
   border: colors.textLight,
+  textHeader: colors.textDark
 };
