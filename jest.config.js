@@ -1,3 +1,5 @@
+// jest.config.js
+
 module.exports = {
   preset: 'react-native',
   transform: {
@@ -12,7 +14,12 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?)/)',
+    'node_modules/(?!(react-native' +
+      '|@react-native' +
+      '|@react-native-community' +
+      '|react-native-date-picker' +
+      '|@react-navigation' +
+      ')/)',
   ],
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   testPathIgnorePatterns: [

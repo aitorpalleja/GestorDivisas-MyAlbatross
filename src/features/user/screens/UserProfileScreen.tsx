@@ -77,6 +77,7 @@ const UserProfileScreen = () => {
               onChangeText={value =>
                 setEditingData(prev => ({...prev, [field]: value}))
               }
+              placeholder={t(`user.${field}`)} // Añadido el placeholder
               placeholderTextColor={theme.text + '90'}
             />
           </View>
