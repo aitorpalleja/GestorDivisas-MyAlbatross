@@ -11,7 +11,7 @@ import CustomHeader from '../components/CustomHeader';
 import {useThemeStore} from '../stores/themeStore';
 import TrendsScreen from '../features/trends/screens/TrendsScreen';
 import {useTranslation} from 'react-i18next';
-import SplashScreen from '../features/splash/screen/SplashScreen';
+import SplashScreen from '../features/splash/screens/SplashScreen';
 import SettingsMenu from '../features/settings/screens/SettingsMenu';
 
 const Tab = createBottomTabNavigator();
