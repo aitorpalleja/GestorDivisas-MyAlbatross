@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {useThemeStore} from '../stores/themeStore';
 import {useUserData} from '../services/apiClient';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const CustomHeader = () => {
   const {theme} = useThemeStore();
@@ -17,20 +18,22 @@ const CustomHeader = () => {
     nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : '');
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.backgroundHeader}]}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <View style={styles.userInfo}>
-        <Text style={[styles.greeting, {color: theme.text}]}>
-          {t('user.greeting')}
-        </Text>
-        <Text style={[styles.name, {color: theme.text}]}>{firstName}</Text>
+    <SafeAreaView style={{backgroundColor: theme.backgroundHeader}}>
+      <View style={styles.container}>
+        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <View style={styles.userInfo}>
+          <Text style={[styles.greeting, {color: theme.text}]}>
+            {t('user.greeting')}
+          </Text>
+          <Text style={[styles.name, {color: theme.text}]}>{firstName}</Text>
+        </View>
+        <View style={[styles.initialsBox, {backgroundColor: theme.primary}]}>
+          <Text style={[styles.initialsText, {color: theme.background}]}>
+            {initials.toUpperCase()}
+          </Text>
+        </View>
       </View>
-      <View style={[styles.initialsBox, {backgroundColor: theme.primary}]}>
-        <Text style={[styles.initialsText, {color: theme.background}]}>
-          {initials.toUpperCase()}
-        </Text>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
